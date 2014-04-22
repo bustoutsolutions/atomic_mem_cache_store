@@ -21,7 +21,7 @@ module AtomicStore
       #check whether the cache is expired
       if @data.get(timer_key, true).nil?
         #optimistic lock to avoid concurrent recalculation
-        if @data.add(timer_key, '', self.class.grace_period, @raw_arg) == NEWLY_STORED
+        if @data.add(timer_key, '', self.class.grace_period, @raw_arg)
           #trigger cache recalculation
           return handle_expired_read(key,result)
         end
@@ -38,6 +38,11 @@ module AtomicStore
     options[:expires_in] = expiry + 2*self.class.grace_period unless expiry.zero?
     @data.set(timer_key(key), '', expiry, @raw_arg)
     super
+  end
+
+  def delete(key, options = nil)
+    unless @data.get(timer_key(key).nil?
+      @data.delete(timer_key(key))
   end
 
   protected
