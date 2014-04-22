@@ -41,8 +41,9 @@ module AtomicStore
   end
 
   def delete(key, options = nil)
-    unless @data.get(timer_key(key).nil?
+    unless @data.get(timer_key(key)).nil?
       @data.delete(timer_key(key))
+    end
   end
 
   protected
