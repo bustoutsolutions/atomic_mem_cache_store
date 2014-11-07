@@ -6,11 +6,10 @@ module AtomicStore
     attr_accessor :grace_period
   end
 
-  @grace_period = 90
-
   def self.included(base)
     @raw_arg = base::RAW_ARG
     base.extend(ClassMethods)
+    base.instance_variable_set('@grace_period',90)
   end
 
   def read(key, options = nil)

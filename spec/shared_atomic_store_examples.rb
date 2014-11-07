@@ -13,7 +13,6 @@ shared_examples "an atomic store" do
 
   before(:each) do
     @seed = "#{Time.now.to_i}#{rand(1000000000000000000000000)}"
-    described_class.grace_period = 90
   end
 
   def prefix_key(value)
